@@ -1,27 +1,52 @@
-from django.shortcuts import render
-from urlshortener import MiniURL
+from django.shortcuts import render,redirect, get_object_or_404
+from .models import MiniURL
 from .forms import MiniURLForm
 
+import random
+import string
+# constants
+
+CODE_LENGTH = 8
+
+
 # Create your views here.
+
+
+def test(request):
+
+	return render(request, 'urlshortener/test.html')
 
 def all_redirections(request):
 	"""display all URL et their shortened code"""
 	urls = MiniURL.objects.all()
-	render(request, 'urlshortener/allurl.html', {'list_of_urls': urls})
+	return render(request, 'urlshortener/allurl.html', {'list_of_urls': urls})
 
 def redirection(request, codesent):
 	""" redirect the shortened url to the original one"""
-	
-	url = MiniURL.objects.get(code=codesent)
-	redirect (url.longURL)
+	url = get_object_or_404(MiniURL, code=codesent)
+
+	return redirect (url.longURL)
+
+def generer(nb_caracteres):
+    caracteres = string.ascii_letters + string.digits
+    aleatoire = [random.choice(caracteres) for _ in range(nb_caracteres)]
+    
+    return ''.join(aleatoire)
+
 
 def urlform(request):
 	"""display the form"""
+	global CODE_LENGTH
+
 	form = MiniURLForm(request.POST or None)
 
 	if form.is_valid():
-		longURL = form.cleaned_data['longURL']
-		creator = form.cleaned_data['creator']
+		
+		url = MiniURL(creator = form.cleaned_data['longURL'],\
+			longURL = form.cleaned_data['creator'],\
+			code = generer(CODE_LENGTH))
 
-	
+	return render(request, 'urlshortener/urlform.html', locals())
+
+
 
