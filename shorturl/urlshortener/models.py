@@ -12,4 +12,4 @@ class MiniURL(models.Model):
 	counter = models.IntegerField(default=0)
 
 	def __str__(self):
-		return self.longURL
+		return '[{1}] - {0}'.format(self.longURL, self.code)

@@ -24,6 +24,7 @@ def all_redirections(request):
 def redirection(request, codesent):
 	""" redirect the shortened url to the original one"""
 	mini = get_object_or_404(MiniURL, code=codesent)
+	mini.save()
 
 	return redirect(mini.longURL, permanent=True)
 
