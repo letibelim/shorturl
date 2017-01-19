@@ -21,11 +21,11 @@ def all_redirections(request):
 	urls = MiniURL.objects.all()
 	return render(request, 'urlshortener/allurl.html', {'list_of_urls': urls})
 
-def redirection(request, codesent):
+def redirection(request, code):
 	""" redirect the shortened url to the original one"""
-	mini = get_object_or_404(MiniURL, code=codesent)
+	mini = get_object_or_404(MiniURL, code=code)
+	mini.counter += 1
 	mini.save()
-
 	return redirect(mini.longURL, permanent=True)
 
 def generer(nb_caracteres):
