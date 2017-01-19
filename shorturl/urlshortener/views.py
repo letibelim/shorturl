@@ -17,15 +17,15 @@ def test(request):
 	return render(request, 'urlshortener/test.html')
 
 def all_redirections(request):
-	"""display all URL et their shortened code"""
+	"""display all URL and their shortened code"""
 	urls = MiniURL.objects.all()
 	return render(request, 'urlshortener/allurl.html', {'list_of_urls': urls})
 
 def redirection(request, codesent):
 	""" redirect the shortened url to the original one"""
-	url = get_object_or_404(MiniURL, code=codesent)
+	mini = get_object_or_404(MiniURL, code=codesent)
 
-	return redirect (url.longURL)
+	return redirect(mini.longURL, permanent=True)
 
 def generer(nb_caracteres):
     caracteres = string.ascii_letters + string.digits

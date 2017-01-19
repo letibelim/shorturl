@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 import datetime
+import string
 
 # Create your models here.
 class MiniURL(models.Model):
