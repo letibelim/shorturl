@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if correctness %}
+<p>Shorturl has been created</p>
+<p>Here is your short url:</p>
+<p>/sh/{{ url.code }}</p>
+{% endif %}
+<form action= "{% url 'form' %}" method = "post">
+	{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit" />
+   </form>
+{% endblock %}

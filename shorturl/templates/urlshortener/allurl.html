@@ -1,9 +1,11 @@
-<h1>Here are all shortened urls</h1>
+{% extends "base.html" %}
+{% block content %}<h3>Shortened urls:</h3>
 
 <ul>
 {% for url in list_of_urls %}
 
-	<li>{{ url }}</li>
+	<li><a href={{ url.longURL }}> {{ url }}</a> created by {{ url.creator }} - number of redirection : {{ url.counter }} </li>
 
 {% endfor %}
 </ul>
+{% endblock %}

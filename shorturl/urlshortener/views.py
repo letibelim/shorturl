@@ -43,9 +43,17 @@ def urlform(request):
 
 	if form.is_valid():
 		
-		url = MiniURL(creator = form.cleaned_data['longURL'],\
-			longURL = form.cleaned_data['creator'],\
-			code = generer(CODE_LENGTH))
+		url = MiniURL(
+			longURL = form.cleaned_data['longURL'],
+			creator = form.cleaned_data['creator'],
+			code = generer(CODE_LENGTH)
+			)
+
+		correctness = True
+
+		url.save()
+
+
 
 	return render(request, 'urlshortener/urlform.html', locals())
 

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+   <title>{% block title %}A Django powered url shortener{% endblock %}</title>
+</head>
+<body>
+{% block header %}
+	<header><h1>My urlshortener</h1></header>
+{% endblock %}
+
+<nav>
+	<ul>
+		<li><a href = {% url 'allurl' %}> All shortened url</a></li>
+		<li><a href = {% url 'form' %}> shorten a new url</a></li>
+	</ul>
+
+
+{% block content %}
+{% endblock %}
+</body>
