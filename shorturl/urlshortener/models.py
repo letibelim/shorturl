@@ -8,7 +8,7 @@ class MiniURL(models.Model):
 	longURL = models.URLField(unique=True, verbose_name= 'url to be shortened')
 	code = models.CharField(max_length=10, unique=True)
 	date = models.DateTimeField(auto_now_add=True, verbose_name = "creation date")
-	creator = models.CharField(max_length=80, null=True)
+	creator = models.CharField(max_length=80, null=True, blank=True)
 	counter = models.IntegerField(default=0)
 
 	def __str__(self):
