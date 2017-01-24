@@ -4,7 +4,7 @@
 <ul>
 {% for url in list_of_urls %}
 
-	<li>{{url.code}} - <a href={{ url.longURL }}>{{ url.longURL }}</a> created by {{ url.creator }} - number of redirection : {{ url.counter }} </li>
+	<li>{{ request.get_host }}/sh/{{ url.code }} - <a href={{ url.longURL }}>{{ url.longURL }}</a> created by {{ url.creator }} - number of redirection : {{ url.counter }} </li>
 
 {% endfor %}
 </ul>

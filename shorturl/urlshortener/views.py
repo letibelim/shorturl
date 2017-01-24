@@ -4,10 +4,6 @@ from .forms import MiniURLForm
 
 import random
 import string
-# constants
-
-CODE_LENGTH = 8
-
 
 # Create your views here.
 
@@ -32,16 +28,9 @@ def redirection(request, code):
 	mini.save()
 	return redirect(mini.longURL, permanent=True)
 
-def generer(nb_caracteres):
-    caracteres = string.ascii_letters + string.digits
-    aleatoire = [random.choice(caracteres) for _ in range(nb_caracteres)]
-    
-    return ''.join(aleatoire)
-
 
 def urlform(request):
 	"""display the form"""
-	global CODE_LENGTH
 
 	form = MiniURLForm(request.POST or None)
 
@@ -50,7 +39,6 @@ def urlform(request):
 		url = MiniURL(
 			longURL = form.cleaned_data['longURL'],
 			creator = form.cleaned_data['creator'],
-			code = generer(CODE_LENGTH)
 			)
 
 		url.save()
