@@ -1,14 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
+
 {% if correctness %}
-<p>Shorturl has been created</p>
-<p>Here is your short url:</p>
-<p>{{ request.get_host }}/sh/{{ url.code }}</p>
-{% endif %}
+
+<p>Shorturl has been created !</p>
+<p><em>{{ request.get_host }}/sh/{{ url.code }}</em> redirects to {{ url.longURL }}</p>
+
+<p><a href="{% url 'form' %}"> Shorten a new urlw</a></p>
+
+{% else %}
+
 <form action= "{% url 'form' %}" method = "post">
+
 	{% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Submit" />
-   </form>
+
+</form>
+
+{% endif %}
+
 {% endblock %}
