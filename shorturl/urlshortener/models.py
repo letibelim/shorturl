@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import models, IntegrityError
 from django.utils import timezone
 import datetime
 import string
@@ -23,7 +23,13 @@ class MiniURL(models.Model):
 		self.code = ''.join(aleatoire)
 
 	def save(self, *args, **kwargs): # override save function to include a generated code
-		if self.pk is None:
+		if self.pk is None: # this checks if a new instance is already created
 			self.generer(self.NB_CARACTERES)
-		super(MiniURL, self).save( *args, **kwargs)
+
+		try:
+			super(MiniURL, self).save( *args, **kwargs)
+		except IntegrityError: # raised if generated code collides with an existing one
+			self.generer(self.NB_CARACTERES)
+			super(MiniURL, self).save( *args, **kwargs)
+
 
